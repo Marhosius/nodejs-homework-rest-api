@@ -80,7 +80,22 @@ router.delete('/:contactId', async (req, res, next) => {
 })
 
 router.put('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    const { error } = contactsSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+
+    const { contactId } = req.params;
+    const result = await updateContact(contactId, req.body);
+
+    if (!result) throw HttpError(404, "Not found");
+
+    res.json(result);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 export default router
