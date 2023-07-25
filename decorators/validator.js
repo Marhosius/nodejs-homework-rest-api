@@ -8,7 +8,6 @@ const validator = schema => {
         }
         next();
     }
-
     return func;
 }
 

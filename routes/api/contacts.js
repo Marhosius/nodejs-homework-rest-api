@@ -1,7 +1,7 @@
 import express from "express";
 import { contactsController } from "../../controllers/index.js";
 import validator from "../../decorators/validator.js";
-import contactsSchema from "../../schema/contacts-schema.js";
+import schema from "../../schema/contactSchemaSVR.js";
 import { validIdCheck, emptyBodyCheck } from "../../middlewares/index.js";
 
 
@@ -13,10 +13,10 @@ router.get('/:contactId', validIdCheck, contactsController.getOneContactCtrl)
 
 router.delete('/:contactId', validIdCheck, contactsController.delContactCtrl)
 
-router.post('/', emptyBodyCheck, validator(contactsSchema), contactsController.addContactCtrl)
+router.post('/', emptyBodyCheck, validator(schema.contactsSchemaSRV), contactsController.addContactCtrl)
 
-router.put('/:contactId', validIdCheck, validator(contactsSchema), contactsController.putContactCtrl)
+router.put('/:contactId', validIdCheck, validator(schema.contactsSchemaSRV), contactsController.putContactCtrl)
 
-router.patch('/:contactId/favorite', validIdCheck, validator(contactsSchema), contactsController.putContactCtrl)
+router.patch('/:contactId/favorite', validIdCheck, validator(schema.favoriteTogleSchemaSRV), contactsController.togleFavotiteCtrl)
 
 export default router
