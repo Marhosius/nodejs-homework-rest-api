@@ -16,7 +16,6 @@ const getOneContactCtrl = async (req, res) => {
 }
 
 const addContactCtrl = async (req, res) => {
-    console.log('req.body', req.body)
     const result = await Contacts.create(req.body);
     res.status(201).json(result);
 }
@@ -35,7 +34,6 @@ const delContactCtrl = async (req, res) => {
 }
 
 const putContactCtrl = async (req, res) => {
-    console.log('req.body', req.body)
     const { contactId } = req.params;
     const result = await Contacts.findByIdAndUpdate(contactId, req.body);
 
