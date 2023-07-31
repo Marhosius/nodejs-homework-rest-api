@@ -9,6 +9,7 @@ import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
 
 const { JWT_SECRET } = process.env;
+
 const signup = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -20,7 +21,6 @@ const signup = async (req, res) => {
     const newUser = await User.create({ ...req.body, password: hashPassword });
 
     res.status(201).json({
-        name: newUser.name,
         email: newUser.email,
     })
 }
@@ -50,11 +50,11 @@ const signin = async (req, res) => {
 }
 
 const getCurrent = (req, res) => {
-    const { name, email } = req.user;
+    const { subscription, email } = req.user;
 
     res.json({
-        name,
         email,
+        subscription
     })
 }
 

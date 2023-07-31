@@ -6,9 +6,9 @@ import { authenticate } from "../../middlewares/index.js";
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", validator(usersSchemas.userSignupSchemaSVR), authController.signup);
-authRouter.post("/signin", validator(usersSchemas.userSigninSchemaSVR), authController.signin);
+authRouter.post("/register", validator(usersSchemas.userSignupSchemaSVR), authController.signup);
+authRouter.post("/login", validator(usersSchemas.userSigninSchemaSVR), authController.signin);
 authRouter.get("/current", authenticate, authController.getCurrent);
-authRouter.post("/signout", authenticate, authController.signout);
+authRouter.post("/logout", authenticate, authController.signout);
 
 export default authRouter;
