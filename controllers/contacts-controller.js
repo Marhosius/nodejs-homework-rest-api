@@ -4,8 +4,9 @@ import { ctrlWrapper } from "../decorators/index.js";
 
 
 const getAllContactsCtrl = async (_, res) => {
-    const contacts = await Contacts.find();
-    res.json(contacts);
+    const { _id: owner } = req.user;
+    const result = await Contacts.find({ owner });
+    res.json(result);
 }
 
 const getOneContactCtrl = async (req, res) => {
@@ -16,7 +17,8 @@ const getOneContactCtrl = async (req, res) => {
 }
 
 const addContactCtrl = async (req, res) => {
-    const result = await Contacts.create(req.body);
+    const { _id: owner } = req.user;
+    const result = await Contacts.create({ ...req.body, owner });
     res.status(201).json(result);
 }
 
