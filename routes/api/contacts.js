@@ -3,9 +3,11 @@ import { contactsController } from "../../controllers/index.js";
 import validator from "../../decorators/validator.js";
 import schema from "../../schema/contactSchemaSVR.js";
 import { validIdCheck, emptyBodyCheck } from "../../middlewares/index.js";
-
+import { authenticate } from "../../middlewares/index.js";
 
 const router = express.Router()
+
+router.use(authenticate);
 
 router.get('/', contactsController.getAllContactsCtrl)
 
