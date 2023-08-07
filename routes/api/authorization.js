@@ -6,9 +6,10 @@ import { authenticate, upload } from "../../middlewares/index.js";
 
 const authRouter = express.Router();
 
-authRouter.post("/register", upload.single("avatar"), validator(usersSchemas.userSignupSchemaSVR), authController.signup);
+authRouter.post("/register", validator(usersSchemas.userSignupSchemaSVR), authController.signup);
 authRouter.post("/login", validator(usersSchemas.userSigninSchemaSVR), authController.signin);
 authRouter.get("/current", authenticate, authController.getCurrent);
 authRouter.post("/logout", authenticate, authController.signout);
+authRouter.patch("/avatars", upload.single("avatar"), authenticate, authController.updateAvatar);
 
 export default authRouter;

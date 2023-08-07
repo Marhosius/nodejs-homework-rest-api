@@ -16,5 +16,5 @@ const userSigninSchemaSVR = Joi.object({
 
 export default {
     userSignupSchemaSVR,
-    userSigninSchemaSVR,
+    userSigninSchemaSVR
 }
