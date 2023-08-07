@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import fs from "fs/promises";
+import path from "path";
 import "dotenv/config";
 
 import User from "../models/user.js";
@@ -10,6 +12,8 @@ import { ctrlWrapper } from "../decorators/index.js";
 
 const { JWT_SECRET } = process.env;
 
+const avatarPath = path.resolve("public", "posters");
+
 const signup = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -18,7 +22,11 @@ const signup = async (req, res) => {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ ...req.body, password: hashPassword });
+    const { path: oldPath, filename } = req.file;
+    const newPath = path.join(avatarPath, filename);
+    await fs.rename(oldPath, newPath);
+    const avatarURL = path.join("avatars", filename);
+    const newUser = await User.create({ ...req.body, avatarURL, password: hashPassword });
 
     res.status(201).json({
         email: newUser.email,
