@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import fs from "fs/promises";
 import path from "path";
 import "dotenv/config";
-import gravatar from "gravatar"
+import gravatar from "gravatar";
+import Jimp from "jimp";
 
 import User from "../models/user.js";
 
@@ -78,6 +79,13 @@ const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     if (!req.file) throw HttpError(400, "Bad Request");
     const { path: oldPath, filename } = req.file;
+
+    Jimp.read(oldPath).then((image) => {
+        image.resize(250, 250);
+    })
+        .catch((err) => {
+            console.log('jimp', err)
+        });
     const newPath = path.join(avatarPath, filename);
     await fs.rename(oldPath, newPath);
     const avatarURL = path.join("avatars", filename);
