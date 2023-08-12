@@ -6,6 +6,7 @@ const userSignupSchemaSVR = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
     subscription: Joi.string(),
+    avatarURL: Joi.string(),
 })
 
 const userSigninSchemaSVR = Joi.object({
@@ -15,5 +16,5 @@ const userSigninSchemaSVR = Joi.object({
 
 export default {
     userSignupSchemaSVR,
-    userSigninSchemaSVR,
+    userSigninSchemaSVR
 }
