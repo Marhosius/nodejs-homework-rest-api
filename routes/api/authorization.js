@@ -9,6 +9,8 @@ const authRouter = express.Router();
 authRouter.post("/register", validator(usersSchemas.userSignupSchemaSVR), authController.signup);
 authRouter.post("/login", validator(usersSchemas.userSigninSchemaSVR), authController.signin);
 authRouter.get("/current", authenticate, authController.getCurrent);
+authRouter.get("/verify/:verificationToken", authController.verify);
+authRouter.get("/verify", validator(usersSchemas.emailSchemaSVR), authController.verifyResend);
 authRouter.post("/logout", authenticate, authController.signout);
 authRouter.patch("/avatars", upload.single("avatar"), authenticate, authController.updateAvatar);
 
