@@ -18,7 +18,14 @@ const userSchemaDB = new Schema({
         default: "starter"
     },
     avatarURL: String,
-    token: String
+    token: String,
+    verify: {
+        type: Boolean,
+        default: false,
+    },
+    verificationToken: {
+        type: String,
+    },
 }, { versionKey: false, timestamps: true });
 
 export default userSchemaDB

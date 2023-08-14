@@ -13,8 +13,12 @@ const userSigninSchemaSVR = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
 })
+const emailSchemaSVR = Joi.object({
+    email: Joi.string().pattern(emailRegexp).required(),
+})
 
 export default {
     userSignupSchemaSVR,
-    userSigninSchemaSVR
+    userSigninSchemaSVR,
+    emailSchemaSVR
 }
